@@ -1,0 +1,6 @@
+task kLayers {
+    doLast {
+        // loadHistory()
+        matchRate(loadHistory(), new Integer(project.ext.depth))
+    }
+}

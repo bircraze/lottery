@@ -1,0 +1,2 @@
+apply from: "lottery_global.gradle"
+apply from: "lottery_task.gradle"

@@ -1,0 +1,70 @@
+project.ext {
+    loadHistory = {
+        fileName = "data.txt"
+        result = []
+        new File("${fileName}").eachLine { line ->
+            result << line.split(",").collect()
+        }
+        return result.reverse()
+    }
+
+    matchRate = { hisList, depth ->
+        println "Depth: ${depth}"
+        // println "hisList: ${hisList}"
+        remainSum = 0
+        survivorIndex = [-1, -1, -1, -1, -1, -1, -1, -1]
+        survivorCount = [0, 0, 0, 0, 0, 0, 0, 0]
+        survivorGapSum = [0, 0, 0, 0, 0, 0, 0, 0]
+        highSurvivorIndex = -1
+        highSurvivorGapSum = 0
+        highSurvivorCount = 0
+        hisList.eachWithIndex { ele, i -> 
+            availableNums = []
+            (1..49).each {
+                if (it < 10) {
+                    availableNums << "0${it}"
+                } else {
+                    availableNums << "${it}"
+                }
+            }
+            println "${i + 1} ========  ${ele}"
+            if ((i + depth) < hisList.size()) {
+                remain = ele.collect()
+                for (int offset = 1;offset <= depth;++offset) {
+                    remain -= hisList[i + offset]
+                    availableNums -= hisList[i + offset]
+                    println "                Depth ${offset}: ${hisList[i + offset]}"
+                    println "                Remains: ${remain}"
+                }
+                if (survivorIndex[remain.size()] != -1) {
+                        survivorGapSum[remain.size()] += (i - survivorIndex[remain.size()])
+                        survivorCount[remain.size()]++
+                }
+                survivorIndex[remain.size()] = i
+
+                if (remain.size() >= 5) {
+                    if (highSurvivorIndex != -1) {
+                        highSurvivorGapSum += (i - highSurvivorIndex)
+                        highSurvivorCount++
+                    }
+                    highSurvivorIndex = i
+                }
+
+                remainSum += (ele - remain).size() 
+            }
+            println "Available numbers(${availableNums.size()}): ${availableNums}"
+        } 
+        println "================================================="
+        println "======== Total duplicated count: ${remainSum}"
+        println "======== Total periods: ${hisList.size() - depth}"
+        println "======== Mean duplicated rate of depth ${depth}: ${remainSum / (hisList.size() - depth)}"
+        tempsurvivorGapSum = 0
+        tempsurvivorCount = 0
+        survivorCount.eachWithIndex { ele, i -> 
+            if (ele > 0) {
+                println "======== Mean reamin size = ${i} rate of gap: ${survivorGapSum[i] / ele}"
+            }
+        }
+        println "======== Mean reamin size >= 5 rate of gap: ${highSurvivorGapSum / highSurvivorCount}"
+    }
+}
