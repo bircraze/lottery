@@ -9,8 +9,7 @@ project.ext {
     }
 
     matchRate = { hisList, depth ->
-        println "Depth: ${depth}"
-        // println "hisList: ${hisList}"
+        println "Depth: ${depth}<br>"
         remainSum = 0
         survivorIndex = [-1, -1, -1, -1, -1, -1, -1, -1]
         survivorCount = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -27,14 +26,14 @@ project.ext {
                     availableNums << "${it}"
                 }
             }
-            println "${i + 1} ========  ${ele}"
+            println "${i + 1} ========  ${ele}<br>"
             if ((i + depth) < hisList.size()) {
                 remain = ele.collect()
                 for (int offset = 1;offset <= depth;++offset) {
                     remain -= hisList[i + offset]
                     availableNums -= hisList[i + offset]
-                    println "                Depth ${offset}: ${hisList[i + offset]}"
-                    println "                Remains: ${remain}"
+                    println "                Depth ${offset}: ${hisList[i + offset]}<br>"
+                    println "                Remains: ${remain}<br>"
                 }
                 if (survivorIndex[remain.size()] != -1) {
                         survivorGapSum[remain.size()] += (i - survivorIndex[remain.size()])
@@ -52,19 +51,19 @@ project.ext {
 
                 remainSum += (ele - remain).size() 
             }
-            println "Available numbers(${availableNums.size()}): ${availableNums}"
+            println "Available numbers(${availableNums.size()}): ${availableNums}<br>"
         } 
-        println "================================================="
-        println "======== Total duplicated count: ${remainSum}"
-        println "======== Total periods: ${hisList.size() - depth}"
-        println "======== Mean duplicated rate of depth ${depth}: ${remainSum / (hisList.size() - depth)}"
+        println "=================================================<br>"
+        println "======== Total duplicated count: ${remainSum}<br>"
+        println "======== Total periods: ${hisList.size() - depth}<br>"
+        println "======== Mean duplicated rate of depth ${depth}: ${remainSum / (hisList.size() - depth)}<br>"
         tempsurvivorGapSum = 0
         tempsurvivorCount = 0
         survivorCount.eachWithIndex { ele, i -> 
             if (ele > 0) {
-                println "======== Mean reamin size = ${i} rate of gap: ${survivorGapSum[i] / ele}"
+                println "======== Mean reamin size = ${i} rate of gap: ${survivorGapSum[i] / ele}<br>"
             }
         }
-        println "======== Mean reamin size >= 5 rate of gap: ${highSurvivorGapSum / highSurvivorCount}"
+        println "======== Mean reamin size >= 5 rate of gap: ${highSurvivorGapSum / highSurvivorCount}<br>"
     }
 }
