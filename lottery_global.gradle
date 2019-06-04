@@ -26,12 +26,15 @@ project.ext {
                     availableNums << "${it}"
                 }
             }
+            availableNums -= ele
             println "${i + 1} ========  ${ele}<br>"
             if ((i + depth) < hisList.size()) {
                 remain = ele.collect()
                 for (int offset = 1;offset <= depth;++offset) {
                     remain -= hisList[i + offset]
-                    availableNums -= hisList[i + offset]
+                    if (offset < depth) {
+                        availableNums -= hisList[i + offset]
+                    }
                     println "                Depth ${offset}: ${hisList[i + offset]}<br>"
                     println "                Remains: ${remain}<br>"
                 }
