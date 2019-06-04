@@ -51,7 +51,7 @@ project.ext {
 
                 remainSum += (ele - remain).size() 
             }
-            println "Available numbers(${availableNums.size()}): ${availableNums}<br>"
+            println "Next available numbers(${availableNums.size()}): ${availableNums}<br>"
         } 
         println "=================================================<br>"
         println "======== Total duplicated count: ${remainSum}<br>"
