@@ -27,7 +27,7 @@ project.ext {
                 }
             }
             availableNums -= ele
-            println "${i + 1} ========  ${ele}<br>"
+            println "<font size=\"5\"> ${i + 1} ========  ${ele}</font><br>"
             if ((i + depth) < hisList.size()) {
                 remain = ele.collect()
                 for (int offset = 1;offset <= depth;++offset) {
@@ -54,7 +54,7 @@ project.ext {
 
                 remainSum += (ele - remain).size() 
             }
-            println "Next available numbers(${availableNums.size()}): ${availableNums}<br>"
+            println "<font size=\"5\" color=\"red\">Next available numbers(${availableNums.size()}): ${availableNums}</font><br>"
         } 
         println "=================================================<br>"
         println "======== Total duplicated count: ${remainSum}<br>"
