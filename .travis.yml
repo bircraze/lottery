@@ -5,4 +5,4 @@ jdk:
   - openjdk10
 
 script:
-  - gradle kLayers -Pdepth=3 > index.html
+  - gradle kLayers -Pdepth=3
